@@ -7,35 +7,35 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     { 
-    path: '/', 
-    name: 'ProductList',
-    component: ProductList },
+      path: '/', 
+      name: 'ProductList',
+      component: ProductList 
+    },
     {
       path: '/favourite',
       name: 'favourite',
       component: () => import('../views/FavouriteView.vue') 
     },
     {
-      path: '/cetegory',
-      name: 'cetegory',
-      component: () => import('../views/FavouriteView.vue') 
+      path: '/category',
+      name: 'category',
+      component: () => import('../views/CategoryView.vue') 
     },
     {
       path: '/order',
       name: 'order',
-      component: () => import('../views/FavouriteView.vue') 
+      component: () => import('../views/OrderView.vue') 
     },
     {
       path: '/profile',
       name: 'profile',
-      component: () => import('../views/FavouriteView.vue') 
+      component: () => import('../views/ProfileView.vue') 
     },
     {
-    path: '/product/:id',
-    name: 'ProductItem',
-    component: ProductItem
-    },
-   
+      path: '/product/:id',
+      name: 'ProductItem',
+      component: ProductItem
+    }
   ]
 });
 

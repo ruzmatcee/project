@@ -20,8 +20,8 @@
         </svg>
         <!-- Repeat for the number of stars -->
       </div>
-      <p class="text-sm font-medium text-gray-900 dark:text-white">5.0</p>
-      <p class="text-sm font-medium text-gray-500 dark:text-gray-400">(455 comments)</p>
+      <p class="text-xs xs:text-sm font-medium text-gray-900 dark:text-white">5.0</p>
+      <p class="line-clamp-1 text-xs xs:text-sm font-medium text-gray-500 dark:text-gray-400">(455 comments)</p>
     </div>
 
     <div class="mt-1 flex items-center justify-between">
@@ -44,7 +44,7 @@
 
 <script setup>
 import { defineProps } from 'vue';
-import { useFavouriteStore } from '@/stores/favourites';
+import { useFavouriteStore } from '../stores/favourites';
 
 const props = defineProps({
   title: String,

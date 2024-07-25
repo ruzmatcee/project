@@ -12,8 +12,8 @@
 </template>
 
 <script setup>
-  import ProductItem from '@/components/Product.vue';
-  import { useProductStore } from '@/stores/products';
+  import ProductItem from '../components/Product.vue';
+  import { useProductStore } from '../stores/products';
 
   const productStore = useProductStore();
   productStore.fetchProducts(); // Fetch products when the component is mounted

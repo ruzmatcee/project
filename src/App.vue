@@ -1,6 +1,5 @@
 <script setup>
 import Navbar from './components/nav/Navbar.vue'
-import Home from './views/HomeView.vue'
 </script>
 
 <!-- src/App.vue -->
