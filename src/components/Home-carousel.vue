@@ -74,11 +74,5 @@
   </script>
 
   <style scoped>
-.swiper-pagination {
-  position: absolute !important;
-  text-align: center !important;
-  transition: 300ms opacity !important;
-  transform: translate3d(0, 0, 0) !important;
-  z-index: 10;
-}
+
 </style>
