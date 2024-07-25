@@ -1,9 +1,12 @@
 <template >
     <div class="w-full container py-8 mx-auto overflow-hidden">
       <swiper
+        :pagination="true"
         :loop="true"
         :modules="modules"
         :grab-cursor="true"
+        :autoplay="{ delay: 3000 }"
+    
         class="mySwiper flex h-[250px] md:h-[500px] rounded-lg">
         <swiper-slide
           class="bg-cover text-white w-full bg-[url(/carousel/Slide-hp-1.webp)] ">
@@ -60,10 +63,22 @@
   <script setup>
   import { Swiper, SwiperSlide } from "swiper/vue";
   import {
-    Autoplay,
+    Pagination,
+    Autoplay
   } from "swiper/modules";
+  import "swiper/css/pagination";
   import "swiper/css";
   
-  const modules = [ Autoplay];
+  const modules = [Pagination, Autoplay];
   
   </script>
+
+  <style scoped>
+.swiper-pagination {
+  position: absolute !important;
+  text-align: center !important;
+  transition: 300ms opacity !important;
+  transform: translate3d(0, 0, 0) !important;
+  z-index: 10;
+}
+</style>

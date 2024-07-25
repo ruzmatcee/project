@@ -3,7 +3,7 @@
     <p>Loading...</p>
   </div>
   <section v-else-if="singleProduct"
-    class="py-4 font-medium mx-auto lg:container z-[101] max-lg:bg-[#f2f0ea] bg-white md:py-16 dark:bg-gray-900 antialiased">
+    class="pt-4 font-medium mx-auto lg:container z-[101] max-lg:bg-[#f2f0ea] bg-white md:pt-16 dark:bg-gray-900 antialiased">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-16">
 
       <div class="sticky top-0 z-10 px-10 lg:px-0 lg:relative">
@@ -56,13 +56,15 @@
         </nav>
 
         <div class="overflow-hidden pr-5 lg:relative lg:-top-3 h-full">
-          <swiper :style="{ '--swiper-navigation-color': '#000' }" :spaceBetween="10" :thumbs="{ swiper: thumbsSwiper }"
-            :modules="modules"
-            class="mySwiper2 lg:bg-[#f2f0ea] rounded-[30px] h-[300px] xs:h-[320px] sm:h-[350px] md:h-[400px] lg:h-[500px]"
+          <swiper :style="{ '--swiper-navigation-color': '#000',
+                             '--swiper-pagination-bottom': '-100px'
+         }" :spaceBetween="10" :thumbs="{ swiper: thumbsSwiper }"
+            :modules="modules"  :pagination="true"
+            class="mySwiper2 lg:bg-[#f2f0ea] rounded-[30px] h-[400px] xs:h-[320px] sm:h-[350px] md:h-[400px] lg:h-[500px]"
             @slideChange="onMainSlideChange">
             <swiper-slide v-for="(image, index) in singleProduct.images" :key="index">
               <img :src="image.image" :alt="'Image ' + index"
-                class="max-lg:mt-10 lg:mb-10 w-[80%] xs:w-[75%] sm:w-[60%] md:w-[50%] lg:w-auto bg-cover mx-auto" />
+                class="max-lg:mb-10 lg:mb-10 w-[80%] xs:w-[75%] sm:w-[60%] md:w-[50%] lg:w-auto bg-cover mx-auto" />
             </swiper-slide>
           </swiper>
 
@@ -76,7 +78,7 @@
           </swiper>
         </div>
       </div>
-      <div class="px-6 bg-white pt-10 max-lg:rounded-[50px] lg:px-0 border-t z-40  mt-6 sm:mt-8 lg:mt-0">
+      <div class="px-6 pb-4 bg-white pt-10 max-lg:rounded-t-[50px] lg:px-0 max-lg:border-t z-40 -top-20 relative lg:mt-0">
         <!-- Product description and other details -->
         <div class="pt-2 flex justify-between items-center">
           <div class="flex gap-x-2">
@@ -124,7 +126,7 @@
               Comments</a>
           </div>
           <p class="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
-            ${{ (currentStock === 0 && selectedSize && selectedColor) ? 0 : singleProduct.price }}
+            ${{ singleProduct.price }}
           </p>
         </div>
         <div class="mt-6">
@@ -135,8 +137,8 @@
             <div class="flex gap-2 mt-2">
               <div v-for="(size, index) in singleProduct.sizes" :key="index" :class="{
                 'px-3 py-1.5 border rounded-lg': true,
-                'opacity-25': !isSizeAvailable(size) && selectedSize !== size,
-                'bg-gray-200': selectedSize === size || (!selectedSize && !isSizeAvailable(size))
+                'opacity-25': !isSizeAvailable(size),
+                'bg-gray-200': selectedSize === size
               }" class="px-2 py-1 rounded cursor-pointer text-gray-900 dark:bg-gray-700 dark:text-white"
                 @click="selectSize(size)">
                 {{ size }}
@@ -145,23 +147,26 @@
             <p v-if="!selectedSize && showError" class="text-red-500 mt-2">Size tanlash kere</p>
           </div>
 
+
           <!-- Colors -->
           <div ref="colorSection" class="mt-4 relative">
             <div class="flex gap-x-3">
               <h2 class="text-lg font-medium text-gray-900 dark:text-white">Colors</h2>
             </div>
             <div class="flex gap-2 mt-2">
-              <div v-for="(color, index) in singleProduct.colors" :key="index" :class="{
-                'px-3 py-1.5 border rounded-lg': true,
-                'opacity-25': !isColorAvailable(color) && selectedColor !== color,
-                'bg-gray-200': selectedColor === color || (!selectedColor && !isColorAvailable(color))
-              }" class="grid place-items-center p-2 rounded-lg cursor-pointer m-1" @click="handleColorClick(color)">
+              <div v-for="(color, index) in singleProduct.colors" :key="index"
+                class="grid place-items-center p-2 rounded-lg cursor-pointer m-1" :class="{
+                  'px-3 py-1.5 border rounded-lg': true,
+                  'opacity-25': !isColorAvailable(color),
+                  'bg-gray-200': selectedColor === color
+                }" @click="handleColorClick(color)">
                 <div class="w-6 h-6 rounded-full" :style="{ backgroundColor: color }"></div>
               </div>
             </div>
             <p v-show="!selectedColor && showError" class="text-red-500 mt-2 absolute -bottom-6 left-0">Color tanlash kere
             </p>
           </div>
+
 
         </div>
 
@@ -177,16 +182,16 @@
           <p v-show="showError && currentStock <= 0" class="text-red-500">Tanlangan mahsulot hozirda sotuvda yo'q.</p>
         </div>
 
+
+
         <div
           class="w-full mt-8 flex hover:bg-blue-500 hover:text-white justify-between items-center px-4 py-3 border rounded-lg">
           Term payment from $30 per month <i class="fa-solid fa-chevron-right"></i>
         </div>
         <div class="mt-6 sm:gap-4 sm:items-center  sm:flex sm:mt-8">
-          <!-- Add to Cart Button -->
-          <button @click="addCard" :class="[
-            'text-white w-full lg:w-11/12 mt-4 py-3 px-2 sm:mt-0 bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify-center',
-            { 'opacity-25 cursor-not-allowed': currentStock === 0 && selectedSize && selectedColor }
-          ]" role="button" :disabled="currentStock === 0 && selectedSize && selectedColor">
+          <button @click="addCard"
+            class="text-white w-full lg:w-5/6 mt-4 py-3 px-2 sm:mt-0 bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm  dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify-center"
+            role="button">
             <svg class="w-6 h-6 -ms-2 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
               fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -194,21 +199,24 @@
             </svg>
             Add to cart
           </button>
-
-          <!-- Toggle Favourite Button -->
-          <div :class="['nav-mobile', { 'bg-white transition duration-300 max-lg:border': isScrolled }]"
-            class="max-lg:flex justify-center items-center max-lg:w-full max-lg:fixed top-0 left-0 z-[103] max-lg:h-[4.5rem] max-lg:rounded-b-[50px] rounded-lg">
-            <button @click="toggleFavourite" :class="[
-              'flex fixed max-lg:top-5 max-lg:right-10 lg:relative items-center justify-center lg:py-0.5 lg:px-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full lg:rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700',
-              { 'opacity-25 cursor-not-allowed': currentStock === 0 && selectedSize && selectedColor }
-            ]" role="button" :disabled="currentStock === 0 && selectedSize && selectedColor">
-              <svg width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <div :class="['nav-mobile', { 'bg-white trasition duration-300 max-lg:border': isScrolled }]"
+            class="flex justify-center items-center max-lg:w-full max-lg:fixed top-0 left-0 z-[103] max-lg:h-[4.5rem] rounded-b-[50px]">
+            <button @click="toggleFavourite"
+              class="flex fixed max-lg:top-4 max-lg:right-8 lg:relative items-center justify-center lg:py-0.5 lg:px-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full lg:rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+              role="button">
+              <svg width="44" height="44" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="3.5" y="3" width="25" height="25" rx="50%" fill="white" />
                 <path
                   :class="{ 'fill-red-500': favouriteStore.activeStates[singleProduct.id], 'stroke-black lg:stroke-[#a4a4a4] fill-white': !favouriteStore.activeStates[singleProduct.id] }"
                   d="M21.8609 11.0746C21.5204 10.7339 21.1161 10.4636 20.6711 10.2793C20.2261 10.0949 19.7492 10 19.2675 10C18.7859 10 18.3089 10.0949 17.864 10.2793C17.419 10.4636 17.0147 10.7339 16.6742 11.0746L15.9675 11.7812L15.2609 11.0746C14.5731 10.3868 13.6402 10.0004 12.6675 10.0004C11.6948 10.0004 10.762 10.3868 10.0742 11.0746C9.3864 11.7623 9 12.6952 9 13.6679C9 14.6406 9.3864 15.5734 10.0742 16.2612L10.7809 16.9679L15.9675 22.1546L21.1542 16.9679L21.8609 16.2612C22.2015 15.9207 22.4718 15.5164 22.6561 15.0715C22.8405 14.6265 22.9354 14.1495 22.9354 13.6679C22.9354 13.1862 22.8405 12.7093 22.6561 12.2643C22.4718 11.8193 22.2015 11.4151 21.8609 11.0746Z" />
               </svg>
             </button>
+            <h1 :class="['text-[4.5vw] lg:hidden relative w-3/6 line-clamp-1 mt-3 transition duration-300', { 'opacity-100': isScrolled, 'opacity-0': !isScrolled }]"> {{ singleProduct.title }}</h1>
+           <router-link to="/">
+            <button class="fixed border  bg-white px-4 py-2 rounded-full top-4 lg:hidden left-8"><i
+                class="fa-regular fa-chevron-left text-xl"></i>
+            </button>
+           </router-link>
           </div>
         </div>
         <hr class="my-6 md:my-8 border-gr, ay-200 dark:border-gray-800" />
@@ -227,7 +235,8 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
-import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
+import "swiper/css/pagination";
+import { FreeMode, Navigation, Pagination, Thumbs } from 'swiper/modules';
 import { useProductSingleStore } from '../stores/productSingle';
 import { useRoute } from 'vue-router';
 import { useFavouriteStore } from '../stores/favourites';
@@ -272,6 +281,8 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
 });
 
+
+
 const thumbsSwiper = ref(null);
 const activeIndex = ref(0);
 
@@ -301,7 +312,8 @@ const addCard = async () => {
   if (!selectedSize.value || !selectedColor.value) {
     showError.value = true;
 
-    await nextTick();
+    // Scroll to the first section that has an error
+    await nextTick(); // Ensure DOM updates
     if (!selectedSize.value) {
       sizeSection.value.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } else if (!selectedColor.value) {
@@ -311,7 +323,7 @@ const addCard = async () => {
   }
 
   if (currentStock.value <= 0) {
-    showError.value = true;
+    showError.value = true; // Show error if stock is 0
     await nextTick();
     if (sizeSection.value) {
       sizeSection.value.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -362,7 +374,7 @@ const selectColor = (color) => {
 
 const handleColorClick = (color) => {
   selectColor(color);
-  onColorClick(color);
+  onColorClick(color); // Rang tanlangandan so'ng, tasvirni yangilash
 };
 
 const onColorClick = (color) => {
@@ -387,11 +399,12 @@ watch(singleProduct, (newProduct) => {
   }
 }, { immediate: true });
 
-const modules = [FreeMode, Navigation, Thumbs];
+const modules = [FreeMode,   Pagination, Navigation, Thumbs];
+
 </script>
 
 
-<style scoped>
+<style >
 .mySwiper {
   margin-top: 10px;
 }
@@ -402,8 +415,13 @@ const modules = [FreeMode, Navigation, Thumbs];
   }
 }
 
-
-
+@media (max-width: 1024px) {
+  .swiper-pagination {
+    position: absolute !important;
+    text-align: end !important;
+    bottom: 60px !important;
+}
+}
 .swiper-slide {
   display: grid !important;
   place-items: center;
