@@ -1,7 +1,7 @@
 <template >
     <div class="w-full container py-8 mx-auto overflow-hidden">
       <swiper
-        :pagination="true"
+      :pagination="true"
         :loop="true"
         :modules="modules"
         :grab-cursor="true"
@@ -73,6 +73,3 @@
   
   </script>
 
-  <style scoped>
-
-</style>

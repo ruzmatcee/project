@@ -55,7 +55,7 @@
           </ol>
         </nav>
 
-        <div class="overflow-hidden pr-5 lg:relative lg:-top-3 h-full">
+        <div class="card-item-swiper overflow-hidden pr-5 lg:relative lg:-top-3 h-full">
           <swiper :style="{ '--swiper-navigation-color': '#000',
                              '--swiper-pagination-bottom': '-100px'
          }" :spaceBetween="10" :thumbs="{ swiper: thumbsSwiper }"
@@ -404,25 +404,18 @@ const modules = [FreeMode,   Pagination, Navigation, Thumbs];
 </script>
 
 
-<style >
-.mySwiper {
+<style>
+.card-item-swiper .mySwiper {
   margin-top: 10px;
 }
 
 @media (max-width: 1024px) {
-  .mySwiper {
+  .card-item-swiper .mySwiper {
     display: none;
   }
 }
 
-@media (max-width: 1024px) {
-  .swiper-pagination {
-    position: absolute !important;
-    text-align: end !important;
-    bottom: 60px !important;
-}
-}
-.swiper-slide {
+.card-item-swiper .swiper-slide {
   display: grid !important;
   place-items: center;
   border-radius: 10px;
@@ -430,8 +423,17 @@ const modules = [FreeMode,   Pagination, Navigation, Thumbs];
   overflow: hidden;
 }
 
-.active-slide {
+.card-item-swiper .active-slide {
   border: 2px solid #20202038;
   /* Sizning rang tanlovingiz */
 }
+
+@media (max-width: 1024px) {
+  .card-item-swiper .swiper-pagination {
+    position: absolute !important;
+    text-align: end !important;
+    bottom: 60px !important;
+  }
+}
 </style>
+
