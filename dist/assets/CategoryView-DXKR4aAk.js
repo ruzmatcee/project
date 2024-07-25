@@ -1,1 +1,0 @@
-import{_ as e}from"./index-CZ3sUWwL.js";import{y as o,x as t,z as r}from"./vue-BpV0wgF8.js";const c={},s=r("h1",null,"Order View",-1),n=[s];function _(a,i){return t(),o("div",null,n)}const f=e(c,[["render",_]]);export{f as default};

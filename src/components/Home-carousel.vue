@@ -86,4 +86,14 @@
     bottom: 0px !important;
   }
 }
+
+.swiper-pagination-bullet-active {
+  opacity: var(--swiper-pagination-bullet-opacity, 1);
+  width: 20px;
+  border-radius: 25px;
+  transition: all 0.3s linear;
+  text-decoration: 400ms;
+
+  background: var(--swiper-pagination-color, var(--swiper-theme-color));
+}
 </style>

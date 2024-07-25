@@ -408,7 +408,6 @@ const modules = [FreeMode,   Pagination, Navigation, Thumbs];
 .card-item-swiper .mySwiper {
   margin-top: 10px;
 }
-
 @media (max-width: 1024px) {
   .card-item-swiper .mySwiper {
     display: none;
