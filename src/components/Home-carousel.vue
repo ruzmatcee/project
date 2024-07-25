@@ -1,5 +1,5 @@
 <template >
-    <div class="w-full container py-8 mx-auto overflow-hidden">
+    <div class="home w-full container py-8 mx-auto overflow-hidden">
       <swiper
       :pagination="true"
         :loop="true"
@@ -73,3 +73,17 @@
   
   </script>
 
+<style>
+
+@media (max-width: 1024px) {
+  .home .swiper-pagination-bullet-active {
+  width: 15px;
+
+  }
+
+  .home .swiper-pagination {
+
+    bottom: 0px !important;
+  }
+}
+</style>

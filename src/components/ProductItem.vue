@@ -55,7 +55,7 @@
           </ol>
         </nav>
 
-        <div class="card-item-swiper overflow-hidden pr-5 lg:relative lg:-top-3 h-full">
+        <div class="card-item-swiper overflow-hidden lg:pr-5 lg:relative lg:-top-3 h-full">
           <swiper :style="{ '--swiper-navigation-color': '#000',
                              '--swiper-pagination-bottom': '-100px'
          }" :spaceBetween="10" :thumbs="{ swiper: thumbsSwiper }"
